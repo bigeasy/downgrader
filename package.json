@@ -20,7 +20,8 @@
     },
     "dependencies":
     {
-                            "cadence":                      "1.0.x"
+                            "cadence":                      "1.0.x",
+                            "nascent.coalesce":             "0.0.0"
     },
     "devDependencies":
     {
