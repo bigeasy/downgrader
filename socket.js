@@ -1,7 +1,7 @@
 var delta = require('delta')
 var cadence = require('cadence')
 var assert = require('assert')
-var coalesce = require('nascent.coalesce')
+var coalesce = require('extant')
 
 var PROTOCOL = {
     http: require('http'),
