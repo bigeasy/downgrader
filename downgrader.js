@@ -19,4 +19,13 @@ Upgrade.prototype.upgrade = function (request, socket, head) {
     }
 }
 
+Upgrade.headers = function (headers) {
+    headers = JSON.parse(JSON.stringify(headers))
+    headers.connection = 'Upgrade'
+    headers.upgrade = 'Conduit'
+    headers['sec-conduit-protocol-id'] = 'c2845f0d55220303d62fc68e4c145877'
+    headers['sec-conduit-version'] = '1'
+    return headers
+}
+
 module.exports = Upgrade

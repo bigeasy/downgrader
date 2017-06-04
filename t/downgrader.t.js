@@ -1,17 +1,23 @@
-require('proof')(4, require('cadence')(prove))
+require('proof')(3, require('cadence')(prove))
 
 function prove (async, assert) {
     var http = require('http')
     var delta = require('delta')
+
     var Upgrader = require('../downgrader')
+
     var upgrader = new Upgrader
+    upgrader.upgrade({ headers: {} })
+
     var sockets = []
+
     upgrader.on('socket', function (request, socket) {
         sockets.push(socket)
         socket.on('data', function (buffer) {
             socket.write(buffer)
         })
     })
+
     var server = http.createServer(function (request, response) { throw new Error })
     server.on('upgrade', function (request, socket, head) {
         assert(head.length, 0, 'head is zero')
@@ -24,20 +30,19 @@ function prove (async, assert) {
         }, 'request')
         upgrader.upgrade(request, socket, head)
     })
-    var socket = require('../socket')
-    var http = require('http')
-    assert(socket, 'require')
+
     async(function () {
         server.listen(8088, async())
     }, function () {
         var request = http.request({
             host: '127.0.0.1',
             port: 8088,
-            headers: socket.headers({
+            headers: Upgrader.headers({
                 host: '127.0.0.1:8088'
             })
         })
-        socket.upgrade(request, async())
+        delta(async()).ee(request).on('upgrade')
+        request.end()
     }, function (request, socket, head) {
         socket.write('hello')
         async(function () {
