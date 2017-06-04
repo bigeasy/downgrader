@@ -23,10 +23,10 @@ function prove (async, assert) {
         assert(head.length, 0, 'head is zero')
         assert(request.headers, {
             connection: 'Upgrade',
-            upgrade: 'Conduit',
+            upgrade: 'Downgrader',
             host: '127.0.0.1:8088',
-            'sec-conduit-protocol-id': 'c2845f0d55220303d62fc68e4c145877',
-            'sec-conduit-version': '1'
+            'sec-downgrader-protocol-id': 'c2845f0d55220303d62fc68e4c145877',
+            'sec-downgrader-version': '1'
         }, 'request')
         upgrader.upgrade(request, socket, head)
     })
