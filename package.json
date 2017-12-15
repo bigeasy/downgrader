@@ -1,6 +1,6 @@
 {
     "name":                 "downgrader",
-    "version":              "0.1.1",
+    "version":              "0.1.2",
     "description":
 
       "Upgrade HTTP sockets to raw sockets and do what you want with them. Scandalous! It's true.",
