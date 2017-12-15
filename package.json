@@ -7,7 +7,7 @@
 
     "keywords":
     [
-                            "upgrade", "http", "socket", "raw"
+                            "bluey", "upgrade", "http", "socket", "raw"
     ],
     "author":               "Alan Gutierrez <alan@prettyrobots.com>",
     "homepage":             "https://github.com/bigeasy/downgrader",
