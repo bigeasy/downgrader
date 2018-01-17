@@ -34,33 +34,33 @@
 <span class="hljs-keyword">var</span> events = <span class="hljs-built_in">require</span>(<span class="hljs-string">'events'</span>)
 <span class="hljs-keyword">var</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>)
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Upgrade</span> (<span class="hljs-params"></span>) </span>{
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Downgrader</span> (<span class="hljs-params"></span>) </span>{
 }
-util.inherits(Upgrade, events.EventEmitter)
+util.inherits(Downgrader, events.EventEmitter)
 
-Upgrade.prototype.upgrade = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">request, socket, head</span>) </span>{
-    <span class="hljs-keyword">if</span> (request.headers[<span class="hljs-string">'sec-conduit-protocol-id'</span>] == <span class="hljs-string">'c2845f0d55220303d62fc68e4c145877'</span>) {
+Downgrader.prototype.upgrade = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">request, socket, head</span>) </span>{
+    <span class="hljs-keyword">if</span> (request.headers[<span class="hljs-string">'sec-downgrader-protocol-id'</span>] == <span class="hljs-string">'c2845f0d55220303d62fc68e4c145877'</span>) {
         assert(head.length == <span class="hljs-number">0</span>, <span class="hljs-string">'head buffer must be zero length'</span>)
         socket.write(
             <span class="hljs-string">'HTTP/1.1 101 Conduit Protocol Handshake\r\n'</span> +
             <span class="hljs-string">'Connection: Upgrade\r\n'</span> +
-            <span class="hljs-string">'Upgrade: Conduit\r\n'</span> +
+            <span class="hljs-string">'Upgrade: Downgrader\r\n'</span> +
             <span class="hljs-string">'\r\n'</span>
         )
         <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'socket'</span>, request, socket)
     }
 }
 
-Upgrade.headers = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">headers</span>) </span>{
+Downgrader.headers = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">headers</span>) </span>{
     headers = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">JSON</span>.stringify(headers))
     headers.connection = <span class="hljs-string">'Upgrade'</span>
-    headers.upgrade = <span class="hljs-string">'Conduit'</span>
-    headers[<span class="hljs-string">'sec-conduit-protocol-id'</span>] = <span class="hljs-string">'c2845f0d55220303d62fc68e4c145877'</span>
-    headers[<span class="hljs-string">'sec-conduit-version'</span>] = <span class="hljs-string">'1'</span>
+    headers.upgrade = <span class="hljs-string">'Downgrader'</span>
+    headers[<span class="hljs-string">'sec-downgrader-protocol-id'</span>] = <span class="hljs-string">'c2845f0d55220303d62fc68e4c145877'</span>
+    headers[<span class="hljs-string">'sec-downgrader-version'</span>] = <span class="hljs-string">'1'</span>
     <span class="hljs-keyword">return</span> headers
 }
 
-<span class="hljs-built_in">module</span>.exports = Upgrade
+<span class="hljs-built_in">module</span>.exports = Downgrader
 
 </pre></div></div>
 
