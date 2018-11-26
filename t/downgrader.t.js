@@ -1,6 +1,6 @@
 require('proof')(3, require('cadence')(prove))
 
-function prove (async, assert) {
+function prove (async, okay) {
     var http = require('http')
     var delta = require('delta')
 
@@ -20,8 +20,8 @@ function prove (async, assert) {
 
     var server = http.createServer(function (request, response) { throw new Error })
     server.on('upgrade', function (request, socket, head) {
-        assert(head.length, 0, 'head is zero')
-        assert(request.headers, {
+        okay(head.length, 0, 'head is zero')
+        okay(request.headers, {
             connection: 'Upgrade',
             upgrade: 'Downgrader',
             host: '127.0.0.1:8088',
@@ -48,7 +48,7 @@ function prove (async, assert) {
         async(function () {
             delta(async()).ee(socket).on('data')
         }, function (data) {
-            assert(data.toString(), 'hello', 'echo')
+            okay(data.toString(), 'hello', 'echo')
             socket.end(async())
             socket.destroy()
         })
