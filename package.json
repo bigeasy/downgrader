@@ -20,7 +20,7 @@
     },
     "dependencies":
     {
-                            "delta":                        "1.4.x",
+                            "delta":                        "3.0.x",
                             "extant":                       "1.0.x"
     },
     "devDependencies":
